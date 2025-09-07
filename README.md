@@ -14,7 +14,7 @@
 Bugs:
 1. Narrow screen causes disfigured calculator layout (FIXED)
     - Change padding number
-2. Text overflow on calc screen
+2. Text overflow on calc screen (FIXED)
 
 
 Logic
