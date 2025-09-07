@@ -34,11 +34,17 @@ const operate = (num1, operator, num2) => {
 }
 
 const populate = () => {
-    let firstNumberDisplay = firstNumber || firstNumber === "0" ? Number(parseFloat(firstNumber).toPrecision(6)).toString() : "";
-    let secondNumberDisplay = secondNumber || secondNumber === "0" ? Number(parseFloat(secondNumber).toPrecision(6)).toString() : "";
+    let firstNumberDisplay = firstNumber || firstNumber === "0" ? Number(parseFloat(firstNumber).toFixed(6)).toString() : "";
+    let secondNumberDisplay = secondNumber || secondNumber === "0" ? Number(parseFloat(secondNumber).toFixed(6)).toString() : "";
     
     calcInput.innerText = secondNumberDisplay ? secondNumberDisplay : firstNumberDisplay;
-    
+    if (calcInput.innerText.length > 17) {
+        calcInput.style.fontSize = "24px"
+    } else if (calcInput.innerText.length > 10) {
+        calcInput.style.fontSize = "32px"
+    } else {
+        calcInput.style.fontSize = "48px"
+    }
 }
 
 const logDigitInput = input => {
