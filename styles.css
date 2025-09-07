@@ -1,3 +1,7 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -13,26 +17,25 @@ body {
     gap: 0px;
     margin: 30px;
 
-    width: 400px;
-    min-height: 600px;
+    width: 380px;
+    min-width: 380px;
+    min-height: 500px;
     border-radius: 30px;
 }
 
 #calc-screen {
     background-color: #eee;
-    height: 200px;
+    height: 100px;
     width: 300px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: right;
+    padding: 10px;
+    font-size: 48px;
 }
 
-#calc-log {
-    height: 60px
-}
-
-.line {
-    border: #111 dotted 2px;
-    margin: 0 5px;
-}
 
 #calc-btn {
     display: flex;
@@ -53,6 +56,8 @@ button {
     border-radius: 10px;
     box-shadow: 1px 5px #999 ;
     flex: 1;
+
+    font-size: 24px;
 }
 
 #btn-clear, #btn-delete {
