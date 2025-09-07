@@ -7,12 +7,15 @@
 [1] [2] [3] [-] 
 [.] [0] [=] [+]
 
-2. Add functionality to buttons 
+2. Add functionality to buttons (Done)
 3. Create operate function (Done)
 4. Math Logic (Done)
 
 Bugs:
 1. Narrow screen causes disfigured calculator layout
+    - Change padding number
+2. Operator still shows after equals sign
+    - add a showOperator boolean var
 
 Logic
 1. New Calc:

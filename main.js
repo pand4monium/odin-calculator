@@ -1,9 +1,10 @@
 // document elements
-const calcLog = document.getElementById("calc-log");
 const calcInput = document.getElementById("calc-input");
 
-const btnClear = document.getElementById("btn-clear");
-const btnDelete = document.getElementById("btn-delete");
+const btnClear = document.getElementById("btnClear");
+const btnDelete = document.getElementById("btnDelete");
+const btnEquals = document.getElementById("btnEquals");
+const btnDecimal = document.getElementById("btnDecimal");
 
 const btnDigits = [...document.querySelectorAll(".digitBtn")];
 const btnOps = [...document.querySelectorAll(".opsBtn")];
@@ -11,26 +12,7 @@ const btnOps = [...document.querySelectorAll(".opsBtn")];
 let firstNumber;
 let operator;
 let secondNumber;
-
-/* Calculator States:
-0 = No previous input
-1 = Editing first Number
-2 = Editing Operator
-3 = Editing second Number
-*/
-let currentState = 0;
-
-const updateState = (log) => {
-    if (log === "") {
-        currentState = 0;
-    } else if (!/[+\-x÷]/.test(log)) {
-        currentState = 1;
-    } else if (log[log.length - 1].match(/[+\-x÷]/)) {
-        currentState = 2;
-    } else {
-        currentState = 3;
-    }
-}
+let storedNumber;
 
 // calculator functions
 const add = (num1, num2) => num1 + num2;
@@ -52,9 +34,12 @@ const operate = (num1, operator, num2) => {
 }
 
 const populate = () => {
-    console.log(firstNumber);
-    console.log(operator);
-    console.log(secondNumber);
+    let firstNumberDisplay = firstNumber || firstNumber === "0" ? Number(parseFloat(firstNumber).toPrecision(9)).toString() : "";
+    let operatorDisplay = operator ? operator : "";
+    let secondNumberDisplay = secondNumber || secondNumber === "0" ? Number(parseFloat(secondNumber).toPrecision(9)).toString() : "";
+    
+    calcInput.innerText = secondNumberDisplay ? secondNumberDisplay : firstNumberDisplay;
+    
 }
 
 const logDigitInput = input => {
@@ -67,8 +52,8 @@ const logDigitInput = input => {
 }
 
 const equalsOperator = () => {
-    firstNumber = operate(parseFloat(firstNumber), operator, parseFloat(secondNumber));
-    operator = undefined;
+    firstNumber = operate(parseFloat(firstNumber), operator, secondNumber ? parseFloat(secondNumber) : parseFloat(storedNumber));
+    storedNumber = secondNumber ? secondNumber : storedNumber;
     secondNumber = undefined;
     populate();
 }
@@ -83,13 +68,37 @@ const logOperatorInput = input => {
     populate();
 }
 
-logOperatorInput("+");
-logDigitInput("1");
-logDigitInput("2");
-logDigitInput("3");
-logOperatorInput("÷");
-logOperatorInput("+");
-logOperatorInput("÷");
-logDigitInput("3");
-logOperatorInput("+");
-logDigitInput("3");
+
+// Event Listeners / Button Logic
+btnDigits.forEach(btn => {
+    btn.addEventListener("click", () => logDigitInput(btn.innerText))
+})
+
+btnOps.forEach(btn => {
+    btn.addEventListener("click", () => logOperatorInput(btn.innerText))
+})
+
+btnEquals.addEventListener("click", equalsOperator);
+btnClear.addEventListener("click", () => {
+    firstNumber = undefined;
+    secondNumber = undefined;
+    operator = undefined;
+    populate();
+})
+
+btnDecimal.addEventListener("click", () => {
+    const firstNumberHasDecimal = firstNumber?.includes(".");
+    const secondNumberHasDecimal = secondNumber?.includes(".");
+
+    if (!firstNumber) {
+        firstNumber = "0.";
+    } else if (firstNumber && !operator && !firstNumberHasDecimal) {
+        firstNumber += ".";
+    } else if (operator && !secondNumber) {
+        secondNumber = "0.";
+    } else if (operator && secondNumber && !secondNumberHasDecimal) {
+        secondNumber += ".";
+    }
+
+    populate();
+})
