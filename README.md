@@ -12,10 +12,10 @@
 4. Math Logic (Done)
 
 Bugs:
-1. Narrow screen causes disfigured calculator layout
+1. Narrow screen causes disfigured calculator layout (FIXED)
     - Change padding number
-2. Operator still shows after equals sign
-    - add a showOperator boolean var
+2. Text overflow on calc screen
+
 
 Logic
 1. New Calc:

@@ -34,9 +34,8 @@ const operate = (num1, operator, num2) => {
 }
 
 const populate = () => {
-    let firstNumberDisplay = firstNumber || firstNumber === "0" ? Number(parseFloat(firstNumber).toPrecision(9)).toString() : "";
-    let operatorDisplay = operator ? operator : "";
-    let secondNumberDisplay = secondNumber || secondNumber === "0" ? Number(parseFloat(secondNumber).toPrecision(9)).toString() : "";
+    let firstNumberDisplay = firstNumber || firstNumber === "0" ? Number(parseFloat(firstNumber).toPrecision(6)).toString() : "";
+    let secondNumberDisplay = secondNumber || secondNumber === "0" ? Number(parseFloat(secondNumber).toPrecision(6)).toString() : "";
     
     calcInput.innerText = secondNumberDisplay ? secondNumberDisplay : firstNumberDisplay;
     
@@ -65,6 +64,16 @@ const logOperatorInput = input => {
     } else if (operator || firstNumber) {
         operator = input;
     }
+    populate();
+}
+
+const deleteFunction = () => {
+    if (!secondNumber) {
+        firstNumber = firstNumber ? firstNumber.slice(0, -1) : "" ;
+    } else {
+        secondNumber = secondNumber.slice(0, -1);
+    }
+
     populate();
 }
 
@@ -102,3 +111,5 @@ btnDecimal.addEventListener("click", () => {
 
     populate();
 })
+
+btnDelete.addEventListener("click", deleteFunction);
